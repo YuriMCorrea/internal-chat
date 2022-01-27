@@ -1,5 +1,5 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-import React,  { useState } from 'react';
+import React,  { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import appConfig from '../config.json';
 
@@ -26,8 +26,17 @@ function Titulo(props) {
 function PaginaInicial() {
     /* const username = 'YuriMCorrea'; */
     const [username, setUsername] = useState('');
+    const [btnCheck, setBtnCheck] = useState(true);
     const roteamento = useRouter();
   
+  useEffect(() => {
+    if(username.length > 1) {
+      setBtnCheck(false);
+    } else {
+      setBtnCheck(true);
+    }
+  }, [username])
+
     return (
       <>
         
@@ -92,6 +101,7 @@ function PaginaInicial() {
               <Button
                 type='submit'
                 label='Entrar'
+                disabled={btnCheck}
                 fullWidth
                 buttonColors={{
                   contrastColor: appConfig.theme.colors.neutrals["700"],
@@ -106,7 +116,7 @@ function PaginaInicial() {
   
             {/* Photo Area */}
             {
-              username.length > 1 ?
+              username.length > 1 ? 
                 <>
                   <Box
                     styleSheet={{
@@ -115,6 +125,7 @@ function PaginaInicial() {
                       alignItems: 'center',
                       maxWidth: '300px',
                       padding: '16px',
+                      margin: '10px',
                       backgroundColor: appConfig.theme.colors.neutrals[800],
                       border: '1px solid',
                       borderColor: appConfig.theme.colors.neutrals[999],
@@ -143,7 +154,8 @@ function PaginaInicial() {
                     </Text>
                   </Box>
                 </>
-                : null
+              
+               : null
               }
               {/* Photo Area */}
           </Box>
