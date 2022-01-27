@@ -127,7 +127,7 @@ function Header() {
                     colorVariant='neutral'
                     label='Logout'
                     href="/"
-                    onclick={roteamento.push('/')}
+                    // onclick={roteamento.push('/')}
                 />
             </Box>
         </>
