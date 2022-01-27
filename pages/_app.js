@@ -6,6 +6,10 @@ function GlobalStyle() {
                 padding: 0;
                 box-sizing: border-box;
                 list-style:none;
+                -ms-overflow-style: none;
+            }
+            ::-webkit-scrollbar {
+                display: none;
             }
 
             body {
