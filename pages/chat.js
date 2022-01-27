@@ -6,7 +6,6 @@ import appConfig from '../config.json';
 export default function Chat() {
     const [msg, setMsg] = useState('');
     const [listaMsg, setListaMsg] = useState([{}]);
-    const roteamento = useRouter();
     // Sua lógica vai aqui
 
     // ./Sua lógica vai aqui
@@ -116,6 +115,7 @@ export default function Chat() {
 }
 
 function Header() {
+    const roteamento = useRouter();
     return (
         <>
             <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
