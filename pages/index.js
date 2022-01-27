@@ -125,7 +125,7 @@ function PaginaInicial() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                maxWidth: '200px',
+                maxWidth: '300px',
                 padding: '16px',
                 backgroundColor: appConfig.theme.colors.neutrals[800],
                 border: '1px solid',
