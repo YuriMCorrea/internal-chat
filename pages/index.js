@@ -1,4 +1,5 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React,  { useState } from 'react';
 import appConfig from '../config.json';
 
 function GlobalStyle() {
@@ -52,7 +53,8 @@ function Titulo(props) {
 };
 
 function PaginaInicial() {
-    const username = 'YuriMCorrea';
+    /* const username = 'YuriMCorrea'; */
+    const [username, setUsername] = useState('');
   
     return (
       <>
@@ -102,6 +104,10 @@ function PaginaInicial() {
                     mainColorHighlight: appConfig.theme.colors.primary[500],
                     backgroundColor: appConfig.theme.colors.neutrals[800],
                   },
+                }}
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value)
                 }}
               />
               <Button
