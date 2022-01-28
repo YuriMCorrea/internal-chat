@@ -150,7 +150,8 @@ function PaginaInicial() {
                         color: appConfig.theme.colors.neutrals[200],
                         backgroundColor: appConfig.theme.colors.neutrals[900],
                         padding: '3px 10px',
-                        borderRadius: '1000px'
+                        borderRadius: '1000px',
+                        fontSize: '1.3rem',
                       }}
                     >
                       {username}
