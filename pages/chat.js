@@ -6,7 +6,7 @@ import appConfig from '../config.json';
 
 export default function Chat() {
     const [msg, setMsg] = useState('');
-    const [listaMsg, setListaMsg] = useState([{}]);
+    const [listaMsg, setListaMsg] = useState([]);
     // Sua lógica vai aqui
 
     // ./Sua lógica vai aqui
@@ -146,7 +146,7 @@ function Header() {
                     colorVariant='neutral'
                     label='Logout'
                     href="/"
-                    onclick={roteamento.back}
+                    onClick={roteamento.back}
                 />
             </Box>
         </>
@@ -185,6 +185,7 @@ function MessageList(props) {
                                     }}
                                 >
                                     <Box
+                                        key={msg.id}
                                         styleSheet={{
                                             marginBottom: '8px',
                                             display: 'flex',

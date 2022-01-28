@@ -1,5 +1,5 @@
 function GlobalStyle() {
-    return(
+    return (
         <style global jsx>{`
             * {
                 margin: 0;
