@@ -87,11 +87,14 @@ export default function Chat() {
                             type="textarea"
                             styleSheet={{
                                 width: '100%',
+                                height: '100%',
                                 border: '0',
                                 resize: 'none',
                                 borderRadius: '5px',
-                                padding: '6px 8px',
+                                padding: '8px 8px',
+                                alignItems: 'center',
                                 backgroundColor: appConfig.theme.colors.neutrals[800],
+                                mainColorHighlight: appConfig.theme.colors.primary[500],
                                 marginRight: '12px',
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
@@ -106,6 +109,15 @@ export default function Chat() {
                                     handleNewMsg(msg);
                                 }
                             }}
+                        />
+                        <Button 
+                            iconName="arrowRight" 
+                            styleSheet={{
+                                maxWidth: '35px', 
+                                maxHeight: '35px',
+                                marginBottom:'5px',
+                            }}
+                            onClick={() => handleNewMsg(msg)}
                         />
                     </Box>
                 </Box>
