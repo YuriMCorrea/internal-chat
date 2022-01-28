@@ -1,3 +1,6 @@
+import UsuarioProvider from '../context/UsuarioContext';
+import appConfig from '../config.json';
+
 function GlobalStyle() {
     return (
         <style global jsx>{`
@@ -11,6 +14,19 @@ function GlobalStyle() {
             ::-webkit-scrollbar {
                 display: none;
             }
+
+            /* ::-webkit-scrollbar {
+                width: 4px;
+                height: 50%;
+                border-radius: 15px;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: ${appConfig.theme.colors.primary['300']};
+            }
+            ::-webkit-scrollbar-track {
+                background: ${appConfig.theme.colors.primary['300']};
+            } */
 
             body {
                 font-family: 'Open Sans', sans-serif;
@@ -39,7 +55,9 @@ export default function MyApp({ Component, pageProps }) {
     return (
         <>
             <GlobalStyle />
-            <Component {...pageProps} />
+            <UsuarioProvider>
+                <Component {...pageProps} />
+            </UsuarioProvider>
         </>
     );
   }

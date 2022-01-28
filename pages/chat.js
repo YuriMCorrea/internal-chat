@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Box, Text, TextField, Image, Button } from '@skynexui/components';
+import { useUsuarioContext } from '../context/UsuarioContext';
+import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
 import { createClient } from '@supabase/supabase-js'
 import appConfig from '../config.json';
 
@@ -9,8 +10,8 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 const SUPABASE_URL = 'https://euvsoihlcqpkbdpuajyh.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
 export default function Chat() {
+    const { usuario, setUsuario } = useUsuarioContext();
     const [msg, setMsg] = useState('');
     const [listaMsg, setListaMsg] = useState([]);
     
@@ -31,7 +32,7 @@ export default function Chat() {
     function handleNewMsg(newMsg){
         const mensagem = {
             // id: listaMsg.length + 1,
-            from: 'YuriMCorrea',
+            from: usuario,
             text: newMsg,
         }
 
@@ -162,12 +163,14 @@ export default function Chat() {
 }
 
 function Header() {
+    const { usuario, setUsuario } = useUsuarioContext();
     const roteamento = useRouter();
+    // const usuarioLogado = roteamento.query.username;
     return (
         <>
             <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
                 <Text variant='heading5'>
-                    Chat
+                    Chat - Welcome {usuario}
                 </Text>
                 <Button
                     variant='tertiary'
@@ -182,75 +185,126 @@ function Header() {
 }
 
 function MessageList(props) {
+
     console.log('MessageList', props);
     return (
-            <Box
-                tag="ul"
-                styleSheet={{
-                    overflowY: 'scroll',
-                    overflowX: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column-reverse',
-                    flex: 1,
-                    color: appConfig.theme.colors.neutrals["000"],
-                    marginBottom: '16px',
-                }}
-            >
-                {
-                    props.messages.map((msg) => {
-                        return(
-                            <>
-                                <Text
-                                    key={msg.id}
-                                    tag="li"
-                                    styleSheet={{
-                                        borderRadius: '5px',
-                                        padding: '6px',
-                                        marginBottom: '12px',
-                                        hover: {
-                                            backgroundColor: appConfig.theme.colors.neutrals[700],
-                                        }
-                                    }}
-                                >
-                                    <Box
-                                        key={msg.id}
-                                        styleSheet={{
-                                            marginBottom: '8px',
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <Image
-                                            styleSheet={{
-                                                width: '20px',
-                                                height: '20px',
-                                                borderRadius: '50%',
-                                                display: 'inline-block',
-                                                marginRight: '8px',
-                                            }}
-                                            src={`https://github.com/${msg.from}.png`}
-                                        />
-                                        <Text tag="strong">
-                                            {msg.from}
-                                        </Text>
-                                        <Text
-                                            styleSheet={{
-                                                fontSize: '10px',
-                                                marginLeft: '8px',
-                                                color: appConfig.theme.colors.neutrals[300],
-                                            }}
-                                            tag="span"
-                                        >
-                                            {(new Date().toLocaleDateString())}
-                                        </Text>
-                                    </Box>
-                                    {msg.text}
-                                </Text>
-                            </>
-                        );
-                    })
-                }
-            </Box>
+        <Box
+            tag="ul"
+            styleSheet={{
+                overflowY: 'scroll',
+                overflowX: 'hidden',
+                display: 'flex',
+                flexDirection: 'column-reverse',
+                flex: 1,
+                color: appConfig.theme.colors.neutrals["000"],
+                marginBottom: '16px',
+            }}
+            
+        >
+            {
+                props.messages.map((msg) => {
+                    return(
+                        <>
+                            <MessageLine idText={msg.id} from={msg.from} textContent={msg.text} />
+                        </>
+                    );
+                })
+            }
+        </Box>
     )
+
+    function MessageLine({ idText, from, textContent }){
+        const [delBtn, setDelBtn] = useState({
+            margin: '0 50px',
+            display: 'none',
+            cursor: 'pointer',
+            position:'relative',
+        });
+
+
+        return(
+            <>
+                <Text
+                    key={idText}
+                    tag="li"
+                    styleSheet={{
+                        borderRadius: '5px',
+                        padding: '6px',
+                        marginBottom: '12px',
+                        hover: {
+                            backgroundColor: appConfig.theme.colors.neutrals[700],
+                        }
+                    }}
+                    onMouseEnter={() => {
+                        setDelBtn({
+                            ...delBtn,
+                            display:'block'
+                        });
+                    }}
+                    onMouseLeave={e => {
+                        setDelBtn({
+                            ...delBtn,
+                            display:'none'
+                        });
+                    }}
+                >
+                    <Box
+                        key={idText}
+                        styleSheet={{
+                            marginBottom: '8px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}
+                        
+                    >
+                        <Image
+                            styleSheet={{
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '50%',
+                                display: 'inline-block',
+                                marginRight: '8px',
+                            }}
+                            src={`https://github.com/${from}.png`}
+                        />
+                        <Text tag="strong">
+                            {from}
+                        </Text>
+                        <Text
+                            styleSheet={{
+                                fontSize: '10px',
+                                marginLeft: '8px',
+                                color: appConfig.theme.colors.neutrals[300],
+                            }}
+                            tag="span"
+                        >
+                            {(new Date().toLocaleDateString())}
+                        </Text>
+                        <Icon
+                            label="Icon Component"
+                            name="FaRegTrashAlt"
+                            styleSheet={delBtn}
+                            onMouseEnter={() => {
+                                setDelBtn({
+                                    ...delBtn,
+                                    color:'red'
+                                });
+                            }}
+                            onMouseLeave={e => {
+                                setDelBtn({
+                                    ...delBtn,
+                                    color:'white'
+                                });
+                            }}
+                            onClick={() => {
+                                handleDelClick(idText);
+                            }}
+                        />
+                    </Box>
+                    {textContent}
+                </Text> 
+            </>
+        );
+    }
 }

@@ -1,6 +1,7 @@
 import React,  { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useUsuarioContext } from '../context/UsuarioContext';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import appConfig from '../config.json';
 
@@ -25,7 +26,7 @@ function Titulo(props) {
 };
 
 function PaginaInicial() {
-    /* const username = 'YuriMCorrea'; */
+    const { usuario, setUsuario } = useUsuarioContext();
     const [username, setUsername] = useState('');
     const [btnCheck, setBtnCheck] = useState(true);
     const roteamento = useRouter();
@@ -71,7 +72,7 @@ function PaginaInicial() {
               as="form"
               onSubmit={function (eventInfo) {
                 eventInfo.preventDefault();
-                console.log("form submetido");
+                setUsuario(username);
                 roteamento.push('/chat');
                 /* window.location.href = '/chat'; */
               }}
