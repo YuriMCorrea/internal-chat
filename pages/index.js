@@ -1,6 +1,7 @@
-import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import React,  { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import appConfig from '../config.json';
 
 
@@ -35,19 +36,21 @@ function PaginaInicial() {
     } else {
       setBtnCheck(true);
     }
-  }, [username])
+  }, [username]);
 
     return (
       <>
-        
-        <Box
-          styleSheet={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backgroundColor: appConfig.theme.colors.primary[500],
-            backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/07/earthrise-1536x864.jpg)',
-            backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
-          }}
-        >
+      <Box
+      styleSheet={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        backgroundColor: appConfig.theme.colors.primary[500],
+        backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/07/earthrise-1536x864.jpg)',
+        backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+      }}
+      >
+      <Head>
+        <title>Login</title>
+      </Head>
           <Box
             styleSheet={{
               display: 'flex',
@@ -162,5 +165,6 @@ function PaginaInicial() {
         </Box>
       </>
     );
-  }
+  };
+
   export default PaginaInicial;

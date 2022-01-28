@@ -1,6 +1,7 @@
-import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import appConfig from '../config.json';
 
 export default function Chat() {
@@ -25,104 +26,110 @@ export default function Chat() {
     }
 
     return (
-        <Box
-            styleSheet={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                backgroundColor: appConfig.theme.colors.primary[500],
-                backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/07/earthrise-1536x864.jpg)',
-                backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
-                color: appConfig.theme.colors.neutrals['000']
-            }}
-        >
+        <>
+            <Head>
+                <title>Chat</title>
+            </Head>
             <Box
                 styleSheet={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flex: 1,
-                    boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                    borderRadius: '5px',
-                    backgroundColor: appConfig.theme.colors.neutrals[700],
-                    height: '100%',
-                    maxWidth: '95%',
-                    maxHeight: '95vh',
-                    padding: '32px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    backgroundColor: appConfig.theme.colors.primary[500],
+                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/07/earthrise-1536x864.jpg)',
+                    backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+                    color: appConfig.theme.colors.neutrals['000']
                 }}
             >
-                <Header />
+                
                 <Box
                     styleSheet={{
-                        position: 'relative',
                         display: 'flex',
-                        flex: 1,
-                        height: '80%',
-                        backgroundColor: appConfig.theme.colors.neutrals[600],
                         flexDirection: 'column',
+                        flex: 1,
+                        boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                         borderRadius: '5px',
-                        padding: '16px',  
+                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        height: '100%',
+                        maxWidth: '95%',
+                        maxHeight: '95vh',
+                        padding: '32px',
                     }}
                 >
-                    
-                    <MessageList messages={listaMsg} />
-                            
-                    
-                    {/* {
-                        listaMsg.map(currentMsg => {
-                            return(
-                                <li key={currentMsg.id}>
-                                    {currentMsg.from}: {currentMsg.text}
-                                </li>
-                            )
-                        })
-                    }        */}
- 
+                    <Header />
                     <Box
-                        as="form"
                         styleSheet={{
+                            position: 'relative',
                             display: 'flex',
-                            alignItems: 'center',
+                            flex: 1,
+                            height: '80%',
+                            backgroundColor: appConfig.theme.colors.neutrals[600],
+                            flexDirection: 'column',
+                            borderRadius: '5px',
+                            padding: '16px',  
                         }}
                     >
-                        <TextField
-                            placeholder="Insira sua mensagem aqui..."
-                            type="textarea"
+                        
+                        <MessageList messages={listaMsg} />
+                                
+                        
+                        {/* {
+                            listaMsg.map(currentMsg => {
+                                return(
+                                    <li key={currentMsg.id}>
+                                        {currentMsg.from}: {currentMsg.text}
+                                    </li>
+                                )
+                            })
+                        }        */}
+    
+                        <Box
+                            as="form"
                             styleSheet={{
-                                width: '100%',
-                                height: '100%',
-                                border: '0',
-                                resize: 'none',
-                                borderRadius: '5px',
-                                padding: '8px 8px',
+                                display: 'flex',
                                 alignItems: 'center',
-                                backgroundColor: appConfig.theme.colors.neutrals[800],
-                                mainColorHighlight: appConfig.theme.colors.primary[500],
-                                marginRight: '12px',
-                                color: appConfig.theme.colors.neutrals[200],
                             }}
-                            value={msg}
-                            onChange={e => {
-                                const valor = e.target.value;
-                                setMsg(valor);
-                            }}
-                            onKeyPress={(e) => {
-                                if(e.key === 'Enter'){
-                                    e.preventDefault();
-                                    handleNewMsg(msg);
-                                }
-                            }}
-                        />
-                        <Button 
-                            iconName="arrowRight" 
-                            styleSheet={{
-                                maxWidth: '35px', 
-                                maxHeight: '35px',
-                                marginBottom:'5px',
-                            }}
-                            onClick={() => handleNewMsg(msg)}
-                        />
+                        >
+                            <TextField
+                                placeholder="Insira sua mensagem aqui..."
+                                type="textarea"
+                                styleSheet={{
+                                    width: '100%',
+                                    height: '100%',
+                                    border: '0',
+                                    resize: 'none',
+                                    borderRadius: '5px',
+                                    padding: '8px 8px',
+                                    alignItems: 'center',
+                                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                                    mainColorHighlight: appConfig.theme.colors.primary[500],
+                                    marginRight: '12px',
+                                    color: appConfig.theme.colors.neutrals[200],
+                                }}
+                                value={msg}
+                                onChange={e => {
+                                    const valor = e.target.value;
+                                    setMsg(valor);
+                                }}
+                                onKeyPress={(e) => {
+                                    if(e.key === 'Enter'){
+                                        e.preventDefault();
+                                        handleNewMsg(msg);
+                                    }
+                                }}
+                            />
+                            <Button 
+                                iconName="arrowRight" 
+                                styleSheet={{
+                                    maxWidth: '35px', 
+                                    maxHeight: '35px',
+                                    marginBottom:'5px',
+                                }}
+                                onClick={() => handleNewMsg(msg)}
+                            />
+                        </Box>
                     </Box>
                 </Box>
             </Box>
-        </Box>
+        </>
     )
 }
 
