@@ -9,24 +9,27 @@ function GlobalStyle() {
                 padding: 0;
                 box-sizing: border-box;
                 list-style:none;
-                -ms-overflow-style: none;
+                /* -ms-overflow-style: none; */
             }
-            ::-webkit-scrollbar {
-                display: none;
-            }
-
             /* ::-webkit-scrollbar {
-                width: 4px;
-                height: 50%;
-                border-radius: 15px;
+                display: none;
+            } */
+
+            ::-webkit-scrollbar {
+                width: 5px;
             }
             
-            ::-webkit-scrollbar-thumb {
-                background: ${appConfig.theme.colors.primary['300']};
-            }
+            /* Track */
             ::-webkit-scrollbar-track {
-                background: ${appConfig.theme.colors.primary['300']};
-            } */
+                box-shadow: inset 0 0 5px grey; 
+                border-radius: 5px;
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: ${appConfig.theme.colors.neutrals[200]};
+                border-radius: 5px;
+            }
 
             body {
                 font-family: 'Open Sans', sans-serif;
