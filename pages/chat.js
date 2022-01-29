@@ -1,14 +1,12 @@
+import { supabase } from '../api';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useUsuarioContext } from '../context/UsuarioContext';
 import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
-import { createClient } from '@supabase/supabase-js'
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker.js';
 import appConfig from '../config.json';
 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzM4Mjk0MiwiZXhwIjoxOTU4OTU4OTQyfQ.MJ-o1_7RflWW-A72ZI1s4aZzxXQNJStKHkOGW_OYqGg';
-const SUPABASE_URL = 'https://euvsoihlcqpkbdpuajyh.supabase.co';
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default function Chat() {
     const { usuario, setUsuario } = useUsuarioContext();
@@ -16,7 +14,8 @@ export default function Chat() {
     const [listaMsg, setListaMsg] = useState([]);
     
     useEffect(() => {
-        supabaseClient
+ 
+        supabase
             .from('mensagens')
             .select('*')
             .order('id', { ascending: false })
@@ -36,7 +35,7 @@ export default function Chat() {
             text: newMsg,
         }
 
-        supabaseClient
+        supabase
             .from('mensagens')
             .insert([
                 mensagem
@@ -99,7 +98,6 @@ export default function Chat() {
                         
                         <MessageList messages={listaMsg} />
                                 
-                        
                         {/* {
                             listaMsg.map(currentMsg => {
                                 return(
@@ -117,6 +115,7 @@ export default function Chat() {
                                 alignItems: 'center',
                             }}
                         >
+                            <ButtonSendSticker/>
                             <TextField
                                 placeholder="Insira sua mensagem aqui..."
                                 type="textarea"
@@ -205,7 +204,7 @@ function MessageList(props) {
                 props.messages.map((msg) => {
                     return(
                         <>
-                            <MessageLine idText={msg.id} from={msg.from} textContent={msg.text} />
+                            <MessageLine key={msg.id} idText={msg.id} from={msg.from} textContent={msg.text} />
                         </>
                     );
                 })
@@ -221,6 +220,17 @@ function MessageList(props) {
             position:'relative',
         });
 
+        function handleDelClick(idText) {
+            supabase
+                .from('mensagens')
+                .delete()
+                .match({ id: idText })
+                .then(({ data }) => {
+                    // alert(`Mensagem: ${data[0].text} apagada com sucesso.`);
+                    console.log('O que ta vindo: ', data[0].text);
+                    // console.log('O que ta vindo: ', data);
+                })
+        };
 
         return(
             <>
