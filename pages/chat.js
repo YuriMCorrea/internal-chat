@@ -231,6 +231,7 @@ function MessageList(props) {
                     // console.log('O que ta vindo: ', data);
                 })
         };
+        console.log(textContent)
 
         return(
             <>
@@ -312,7 +313,14 @@ function MessageList(props) {
                             }}
                         />
                     </Box>
-                    {textContent}
+                    {
+                        textContent?.startsWith(':sticker:') 
+                        ?(
+                            <Image src={textContent.replace(':sticker:', '')} />
+                        )
+                        : 
+                        textContent
+                    }
                 </Text> 
             </>
         );
