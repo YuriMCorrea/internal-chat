@@ -57,8 +57,8 @@ export default function MyApp({ Component, pageProps }) {
     console.log('Roda em todas as páginas');
     return (
         <>
-            <GlobalStyle />
             <UsuarioProvider>
+                <GlobalStyle />
                 <Component {...pageProps} />
             </UsuarioProvider>
         </>
