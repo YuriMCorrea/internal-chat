@@ -7,7 +7,6 @@ import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components'
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker.js';
 import appConfig from '../config.json';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 function catchMsgRealTime(addMsg){
     return(
