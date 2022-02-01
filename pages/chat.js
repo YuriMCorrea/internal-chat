@@ -7,6 +7,17 @@ import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components'
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker.js';
 import appConfig from '../config.json';
 
+function catchMsgRealTime(addMsg){
+    return(
+        supabase
+            .from('mensagens')
+            .on('INSERT', (OqVeio) => {
+                // console.log('Oq veio : ', OqVeio);
+                addMsg(OqVeio.new);
+            })
+            .subscribe()
+    );
+}
 
 export default function Chat() {
     const { usuario, setUsuario } = useUsuarioContext();
@@ -20,10 +31,20 @@ export default function Chat() {
             .select('*')
             .order('id', { ascending: false })
             .then(({ data }) => {
-                console.log('Dados da consulta:', data);
+                // console.log('Dados da consulta:', data);
                 setListaMsg(data);
             })
-
+        
+            catchMsgRealTime((newMsg) => {
+                setListaMsg((valorAtualLista) => {
+                    return [
+                        newMsg,
+                        ...valorAtualLista, 
+                        
+                    ]
+                });
+            })
+        
     }, []);
     
     
@@ -41,13 +62,13 @@ export default function Chat() {
                 mensagem
             ])
             .then(({ data }) => {
-                console.log('O que ta vindo: ', data);
+                // console.log('O que ta vindo: ', data);
 
-                setListaMsg([
-                    data[0],
-                    ...listaMsg, 
+                // setListaMsg([
+                //     data[0],
+                //     ...listaMsg, 
                     
-                ]);
+                // ]);
             })
 
         setMsg('');
@@ -115,7 +136,13 @@ export default function Chat() {
                                 alignItems: 'center',
                             }}
                         >
-                            <ButtonSendSticker/>
+                            {/* Callback */}
+                            <ButtonSendSticker 
+                                onStickerClick={(sticker) => {
+                                    // console.log('Salva esse Sticker no banco');
+                                    handleNewMsg(`:sticker: ${sticker}`)
+                                }}
+                            />
                             <TextField
                                 placeholder="Insira sua mensagem aqui..."
                                 type="textarea"
@@ -185,7 +212,7 @@ function Header() {
 
 function MessageList(props) {
 
-    console.log('MessageList', props);
+    // console.log('MessageList', props);
     return (
         <Box
             tag="ul"
@@ -227,10 +254,11 @@ function MessageList(props) {
                 .match({ id: idText })
                 .then(({ data }) => {
                     // alert(`Mensagem: ${data[0].text} apagada com sucesso.`);
-                    console.log('O que ta vindo: ', data[0].text);
+                    // console.log('O que ta vindo: ', data[0].text);
                     // console.log('O que ta vindo: ', data);
                 })
         };
+        
         console.log(textContent)
 
         return(
