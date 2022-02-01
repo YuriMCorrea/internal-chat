@@ -129,7 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
 # Optional REPL history
 .node_repl_history
 .next
