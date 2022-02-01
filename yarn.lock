@@ -1029,10 +1029,10 @@
   resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.0.9.tgz"
   integrity sha512-1c/sxp/4Qz4F6rCxiYqAnrmghCOFt5hHZ9Kd+rXFW5Mqev4C4XDOUMHdBH55HgnJZqngYhOE0r/XNkCtsIojig==
 
-"@skynexui/components@^1.24.2":
-  version "1.24.2"
-  resolved "https://registry.npmjs.org/@skynexui/components/-/components-1.24.2.tgz"
-  integrity sha512-y33kQyFgHs/p9CcdfwezAY3J8pWLQfUHByc87K4U5/Nn90Giepk+5KRTeJrnYEcCZRG+FP4rBIQ3UTCBDBlM6w==
+"@skynexui/components@^1.24.3":
+  version "1.24.3"
+  resolved "https://registry.yarnpkg.com/@skynexui/components/-/components-1.24.3.tgz#cc98f913a5a07e637a5bbfd0b2a84dd2240e7afa"
+  integrity sha512-EPgpVdRTj8+i5b/l5w5nGjNDvKjPwK5M5xDDLtZZw3/T+Wkf6EfBsByzmLacNVIgs3e2c+R5mBgOSSpvXwD7DQ==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.36"
     "@fortawesome/fontawesome-free" "^5.15.4"
