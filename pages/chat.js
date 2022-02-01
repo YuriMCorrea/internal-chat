@@ -19,7 +19,7 @@ function catchMsgRealTime(addMsg){
     );
 }
 
-export default function Chat() {
+function Chat() {
     const { usuario, setUsuario } = useUsuarioContext();
     const [msg, setMsg] = useState('');
     const [listaMsg, setListaMsg] = useState([]);
@@ -61,15 +61,17 @@ export default function Chat() {
             .insert([
                 mensagem
             ])
-            .then(({ data }) => {
-                // console.log('O que ta vindo: ', data);
+            .then(
+            //     ({ data }) => {
+            //     console.log('O que ta vindo: ', data);
 
-                // setListaMsg([
-                //     data[0],
-                //     ...listaMsg, 
+            //     setListaMsg([
+            //         data[0],
+            //         ...listaMsg, 
                     
-                // ]);
-            })
+            //     ]);
+            // }
+            )
 
         setMsg('');
     }
@@ -117,7 +119,7 @@ export default function Chat() {
                         }}
                     >
                         
-                        <MessageList messages={listaMsg} />
+                        <MessageList key={usuario} messages={listaMsg} />
                                 
                         {/* {
                             listaMsg.map(currentMsg => {
@@ -211,10 +213,11 @@ function Header() {
 }
 
 function MessageList(props) {
-
+    const { usuario, setUsuario } = useUsuarioContext();
     // console.log('MessageList', props);
     return (
         <Box
+            key={usuario}
             tag="ul"
             styleSheet={{
                 overflowY: 'scroll',
@@ -354,3 +357,5 @@ function MessageList(props) {
         );
     }
 }
+
+export default Chat;
