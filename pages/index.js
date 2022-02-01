@@ -13,14 +13,16 @@ function Titulo(props) {
     return(
         <>
             <Tag>{props.children}</Tag>
-            <style jsx>{`
+            <style jsx>
+              {`
                 ${Tag} {
-                    color: ${appConfig.theme.colors.primary['050']};
-                    font-size: 32px;
+                    color: ${appConfig.theme.colors.primary['050']},
+                    font-size: 32px
                     font-weight: 600;
                     margin: 15px;
                 }
-            `}</style>
+            `}
+            </style>
         </>
     );
 };
