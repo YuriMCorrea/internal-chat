@@ -259,7 +259,7 @@ function MessageList(props) {
                 })
         };
         
-        console.log(textContent)
+        // console.log(textContent)
 
         return(
             <>
